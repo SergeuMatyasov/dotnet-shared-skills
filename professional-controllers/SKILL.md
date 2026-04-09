@@ -8,11 +8,12 @@ description: "Используй при полном рефакторинге AS
 ## Цель
 Использовать этот skill как workflow-режим полного рефакторинга контроллера.
 
-Этот skill оркестрирует работу и объединяет требования из:
+## Связанные skills
 - `.github/skills/controllers/SKILL.md`
 - `.github/skills/controllers-routing-versioning/SKILL.md`
 - `.github/skills/controllers-contract-openapi/SKILL.md`
 - `.github/skills/controllers-testing/SKILL.md`
+- `.github/skills/validators/SKILL.md`
 
 ## Когда использовать
 Используй этот skill, если нужно выполнить full refactoring контроллера, включая:

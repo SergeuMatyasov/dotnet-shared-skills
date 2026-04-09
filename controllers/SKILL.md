@@ -19,10 +19,11 @@ description: "Используй при разработке и рефактор
 - провести полный рефакторинг существующего контроллера;
 - сделать PR-ревью контроллера.
 
-Для глубоких задач подключай специализированные skills:
+## Связанные skills
 - `.github/skills/controllers-routing-versioning/SKILL.md`
 - `.github/skills/controllers-contract-openapi/SKILL.md`
 - `.github/skills/controllers-testing/SKILL.md`
+- `.github/skills/validators/SKILL.md`
 
 ## Обязательные правила
 1. Использовать primary constructor для внедрения зависимостей там, где это возможно.

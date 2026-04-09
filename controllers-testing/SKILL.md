@@ -5,6 +5,9 @@ description: "Используй при тестировании ASP.NET Core к
 
 # Controllers Testing
 
+## Связанные skills
+- `.github/skills/validators/SKILL.md`
+
 ## Цель
 Гарантировать, что изменения в контроллерах не ломают контракт и поведение API.
 

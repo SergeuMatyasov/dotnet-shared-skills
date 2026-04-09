@@ -2,7 +2,9 @@
 name: tests
 description: "Используй при написании или обновлении автоматизированных тестов в этом репозитории: unit tests, integration tests и validator tests на C#."
 ---
-```
+
+## Связанные skills
+- `.github/skills/validators/SKILL.md`
 
 ## Цель
 Писать тесты, которые:
