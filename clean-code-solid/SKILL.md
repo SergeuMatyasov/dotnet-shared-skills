@@ -14,6 +14,12 @@ description: "Используй для применения SOLID в прило
 - рефакторить перегруженный класс;
 - уменьшить связность между слоями.
 
+## Связанные skills
+- `.github/skills/clean-code-principles/SKILL.md`
+- `.github/skills/clean-code-refactoring/SKILL.md`
+- `.github/skills/clean-code-functions/SKILL.md`
+- `.github/skills/clean-code-naming/SKILL.md`
+
 ## Обязательные правила
 1. SRP: класс должен иметь одну причину для изменения.
 2. OCP: расширять поведение без правок стабильного кода, где это уместно.

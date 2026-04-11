@@ -14,6 +14,22 @@ description: "Используй при рефакторинге без изме
 - подготовить код к расширению;
 - устранить дублирование и технический долг.
 
+## Связанные skills
+- `.github/skills/clean-code-principles/SKILL.md`
+- `.github/skills/clean-code-functions/SKILL.md`
+- `.github/skills/clean-code-naming/SKILL.md`
+- `.github/skills/clean-code-solid/SKILL.md`
+- `.github/skills/unit-testing/SKILL.md`
+
+## Правило маршрутизации
+Если пользователь явно просит "рефакторинг" (или близкую формулировку),
+используй этот skill как основной и дополнительно подтягивай связанные skills:
+- `clean-code-principles` как master-checklist;
+- `clean-code-functions` для декомпозиции методов;
+- `clean-code-naming` для переименований;
+- `clean-code-solid` для границ ответственности;
+- `unit-testing` для обязательной проверки регрессий.
+
 ## Обязательные правила
 1. Рефакторинг не должен менять внешний контракт без явной задачи.
 2. Изменения делать небольшими проверяемыми шагами.
