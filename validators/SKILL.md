@@ -37,6 +37,11 @@ description: "Используй для FluentValidation-валидаторов.
     использовать `Cascade(CascadeMode.Stop)`.
 7. Валидаторы должны быть детерминированными: без зависимости
     от текущего времени, окружения и случайных данных без фиксации.
+8. Вложенные валидаторы подключать через `SetValidator` или `Include`,
+    а не через ручной вызов `Validate/ValidateAsync` внутри `Must/MustAsync`.
+9. Если валидатор можно переиспользовать в нескольких сценариях,
+    выделять его в отдельный класс (например, `TbankNotificationValidator`)
+    и внедрять через конструктор.
 
 ## Рекомендуемые практики
 1. Разделять primitive validators и object validators:
@@ -51,6 +56,11 @@ description: "Используй для FluentValidation-валидаторов.
 5. Для правил с доступом к репозиторию сначала валидировать
     базовые условия (`NotEmpty`), затем вызывать `MustAsync`.
 6. Сохранять единый стиль имен: `UserIdExistsValidator`, `UpdateUserFullNameCommandValidator`.
+7. Тестировать вложенные валидаторы отдельно,
+    а в composite-validator проверять только корректное подключение и ожидаемые ошибки.
+8. Для `RuleFor(x => x.Property).SetValidator(...)` предпочитать
+    проверку конкретного `PropertyName` и сообщения ошибки,
+    чтобы тесты оставались устойчивыми к внутреннему рефакторингу.
 
 ## Анти-паттерны
 1. Смешивание валидации и бизнес-операций.
@@ -81,6 +91,12 @@ description: "Используй для FluentValidation-валидаторов.
 Как лучше: тестировать невалидные строковые значения (`""`, `" "`)
 и учитывать особое поведение `null` отдельно.
 
+6. Ручной вызов вложенного валидатора внутри `MustAsync`.
+Почему плохо: дублируется инфраструктура FluentValidation,
+теряется прозрачность композиции и усложняется unit-тестирование.
+Как лучше: подключать вложенный валидатор через `SetValidator`/`Include`
+и тестировать его как отдельный компонент.
+
 ## Примеры
 
 ### Do
@@ -93,6 +109,17 @@ public class UpdateUserFullNameCommandValidator : AbstractValidator<UpdateUserFu
     {
         RuleFor(x => x.UserId).SetValidator(userIdExistsValidator);
         RuleFor(x => x.FullName).SetValidator(fullNameValidator);
+    }
+}
+```
+
+```csharp
+public class HandleTbankNotificationCommandValidator : AbstractValidator<HandleTbankNotificationCommand>
+{
+    public HandleTbankNotificationCommandValidator(TbankNotificationValidator tbankNotificationValidator)
+    {
+        RuleFor(x => x.JsonElement)
+            .SetValidator(tbankNotificationValidator);
     }
 }
 ```
@@ -125,6 +152,8 @@ public class UpdateUserFullNameCommandValidator : AbstractValidator<UpdateUserFu
 5. Добавь/обнови unit-тесты: позитив, негатив, границы.
 6. Проверь, что изменения не затрагивают
     внешний контракт вне валидации.
+7. Для вложенных правил реши, что именно тестируется:
+    сам reusable-validator или только wiring в composite-validator.
 
 ## Проверка перед завершением
 1. Валидатор не содержит бизнес-операций и побочных эффектов.
@@ -133,3 +162,5 @@ public class UpdateUserFullNameCommandValidator : AbstractValidator<UpdateUserFu
 4. Сообщения валидации на английском языке.
 5. Покрыты ключевые тестовые сценарии: позитив, негатив и границы.
 6. Нет неожиданного поведения с `null` для root primitive validators.
+7. Вложенные валидаторы подключены через `SetValidator`/`Include`
+    и покрыты отдельными unit-тестами.
